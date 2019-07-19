@@ -7,9 +7,9 @@
     "url": "https://github.com/alexbosworth/balanceofsatoshis/issues"
   },
   "dependencies": {
-    "aws-sdk": "2.398.0",
-    "caporal": "1.1.0",
-    "dotenv": "6.2.0",
+    "aws-sdk": "2.496.0",
+    "caporal": "1.2.0",
+    "dotenv": "8.0.0",
     "sprintf-js": "1.1.2"
   },
   "description": "Send notification CLI",
@@ -20,5 +20,5 @@
     "type": "git",
     "url": "https://github.com/alexbosworth/sendnotification.git"
   },
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
