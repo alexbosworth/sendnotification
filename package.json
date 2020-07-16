@@ -7,7 +7,7 @@
     "url": "https://github.com/alexbosworth/sendnotification/issues"
   },
   "dependencies": {
-    "aws-sdk": "2.691.0",
+    "aws-sdk": "2.714.0",
     "caporal": "1.4.0",
     "dotenv": "8.2.0",
     "sprintf-js": "1.1.2"
@@ -20,5 +20,5 @@
     "type": "git",
     "url": "https://github.com/alexbosworth/sendnotification.git"
   },
-  "version": "1.0.7"
+  "version": "1.0.8"
 }
