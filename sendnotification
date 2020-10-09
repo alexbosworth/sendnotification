@@ -6,14 +6,13 @@ const {readFileSync} = require('fs');
 const dotenv = require('dotenv');
 const prog = require('caporal');
 const {SNS} = require('aws-sdk');
-const {sprintf} = require('sprintf-js');
 
-const awsConf = require('./aws_conf');
+const {apiVersion} = require('./aws');
 const {name} = require('./package');
+const {sendSnsNotification} = require('./aws');
 const {version} = require('./package');
 
 const config = dotenv.config({path: join(homedir(), `.${name}/.env`)});
-const sns = new SNS({apiVersion: awsConf.api_version});
 const STDIN_FILENO = 0;
 
 prog
@@ -26,43 +25,18 @@ prog
   .option('--subject', 'Subject line of message')
   .option('--test', 'Avoid actually posting to SNS, just log to console')
   .action((args, options, logger) => {
-    return new Promise(async (resolve, reject) => {
-      const input = readFileSync(STDIN_FILENO).toString().trim();
-
-      if (!!options.nonzero && input === '0') {
-        return resolve();
-      }
-
-      const Message = sprintf(args.message, input);
-      const Subject = options.subject || undefined;
-      const TopicArn = args.topic;
-
-      if (!process.env.AWS_ACCESS_KEY_ID) {
-        return reject(new Error('ExpectedAwsAccessKeyIdEnvToSendSns'));
-      }
-
-      if (!process.env.AWS_REGION) {
-        return reject(new Error('ExpectedAwsRegionEnvToSendSns'));
-      }
-
-      if (!process.env.AWS_SECRET_ACCESS_KEY) {
-        return reject(new Error('ExpectedAwsSecretAccessKeyEnvToSendSns'));
-      }
-
-      if (!!Subject) {
-        logger.info(Subject);
-      }
-
-      logger.info(Message);
-
-      // Exit early when just testing out the message
-      if (!!options.test) {
-        return resolve();
-      }
-
-      await sns.publish({Message, Subject, TopicArn}).promise();
-
-      return resolve();
+    return sendSnsNotification({
+      logger,
+      aws_access_key_id: process.env.AWS_ACCESS_KEY_ID,
+      aws_region: process.env.AWS_REGION,
+      aws_secret_access_key: process.env.AWS_SECRET_ACCESS_KEY,
+      input: readFileSync(STDIN_FILENO).toString().trim(),
+      is_nonzero: options.nonzero,
+      is_test: options.test,
+      message: args.message,
+      sns: new SNS({apiVersion}),
+      subject: options.subject,
+      topic: args.topic,
     });
   });
 
