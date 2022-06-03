@@ -7,9 +7,9 @@
     "url": "https://github.com/alexbosworth/sendnotification/issues"
   },
   "dependencies": {
-    "aws-sdk": "2.1111.0",
+    "aws-sdk": "2.1148.0",
     "caporal": "1.4.0",
-    "dotenv": "16.0.0",
+    "dotenv": "16.0.1",
     "sprintf-js": "1.1.2"
   },
   "description": "Send notification CLI",
@@ -26,5 +26,5 @@
     "postpublish": "docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t alexbosworth/sendnotification --push .",
     "test": "tap test/aws/*.js"
   },
-  "version": "1.0.12"
+  "version": "1.0.13"
 }
