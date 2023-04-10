@@ -26,5 +26,5 @@
     "postpublish": "docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t alexbosworth/sendnotification --push .",
     "test": "tap test/aws/*.js"
   },
-  "version": "1.0.14"
+  "version": "1.0.15"
 }
