@@ -17,9 +17,14 @@ echo "5000" | sendnotification SNS "SNS_TOPIC_IDENTIFIER" "the current balance i
 Set environment variables or setup ~/.sendnotification/.env
 
 ```ini
+# AWS configuration settings
 AWS_ACCESS_KEY_ID=""
 AWS_REGION=""
 AWS_SECRET_ACCESS_KEY=""
+
+# Mailjet configuration settings
+MJ_APIKEY_PRIVATE=""
+MJ_APIKEY_PUBLIC=""
 ```
 
 ## Docker

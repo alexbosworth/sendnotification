@@ -9,10 +9,12 @@ const {SNS} = require('aws-sdk');
 
 const {apiVersion} = require('./aws');
 const {name} = require('./package');
+const {sendMailjetEmail} = require('./mailjet');
 const {sendSnsNotification} = require('./aws');
 const {version} = require('./package');
 
 const config = dotenv.config({path: join(homedir(), `.${name}/.env`)});
+const configLocal = dotenv.config();
 const STDIN_FILENO = 0;
 
 prog
@@ -37,6 +39,23 @@ prog
       sns: new SNS({apiVersion}),
       subject: options.subject,
       topic: args.topic,
+    });
+  })
+
+  .command('MJ_EMAIL', 'Send a mailjet email')
+  .argument('<from>', 'Email address to send email from')
+  .argument('<to>', 'Email address to send email to')
+  .argument('<message>', 'Message to send')
+  .option('--subject', 'Subject line of message')
+  .action((args, options, logger) => {
+    return sendMailjetEmail({
+      from: args.from,
+      html: args.message,
+      subject: options.subject,
+      mj_apikey_private: process.env.MJ_APIKEY_PRIVATE,
+      mj_apikey_public: process.env.MJ_APIKEY_PUBLIC,
+      text: args.message,
+      to: args.to,
     });
   });
 
