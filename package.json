@@ -1,5 +1,8 @@
 {
-  "author": "Alex Bosworth",
+  "author": {
+    "name": "Alex Bosworth",
+    "url": "https://twitter.com/alexbosworth"
+  },
   "bin": {
     "sendnotification": "./sendnotification"
   },
@@ -7,16 +10,13 @@
     "url": "https://github.com/alexbosworth/sendnotification/issues"
   },
   "dependencies": {
-    "aws-sdk": "2.1368.0",
+    "aws-sdk": "2.1422.0",
     "caporal": "1.4.0",
-    "dotenv": "16.0.3",
-    "node-mailjet": "6.0.2",
+    "dotenv": "16.3.1",
+    "node-mailjet": "6.0.4",
     "sprintf-js": "1.1.2"
   },
   "description": "Send notification CLI",
-  "devDependencies": {
-    "@alexbosworth/tap": "15.0.12"
-  },
   "license": "MIT",
   "name": "sendnotification",
   "repository": {
@@ -25,7 +25,7 @@
   },
   "scripts": {
     "postpublish": "docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t alexbosworth/sendnotification --push .",
-    "test": "tap test/aws/*.js"
+    "test": "npx nyc@15.1.0 node --experimental-test-coverage --test"
   },
-  "version": "1.1.0"
+  "version": "1.1.1"
 }
