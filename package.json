@@ -13,7 +13,7 @@
     "aws-sdk": "2.1422.0",
     "caporal": "1.4.0",
     "dotenv": "16.3.1",
-    "node-mailjet": "6.0.4",
+    "node-mailjet": "6.0.5",
     "sprintf-js": "1.1.2"
   },
   "description": "Send notification CLI",
